@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 import static caupcakes.SlashCommandListener.*;
 
-public class setup {
+public class Setup {
     public static void setup(SlashCommandInteractionEvent event) {
         // permissions checked.
 
@@ -78,7 +78,7 @@ public class setup {
     }
 
 
-    private static boolean matches(Pattern p, String s) {
+    public static boolean matches(Pattern p, String s) {
         return p.matcher(s).matches();
     }
 }

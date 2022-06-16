@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Base64;
 
-import static caupcakes.Commands.setup.setup;
+import static caupcakes.Commands.Setup.setup;
 
 public class SlashCommandListener extends ListenerAdapter {
     public static final boolean EPHEMERAL = false;
