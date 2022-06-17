@@ -1,47 +1,18 @@
-package caupcakes;
+package caupcakes.utils;
 
-import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
+import java.time.Instant;
 import java.util.Base64;
 
-import static caupcakes.Commands.Setup.setup;
+import static caupcakes.listeners.SlashCommandListener.EPHEMERAL;
+import static caupcakes.listeners.SlashCommandListener.MENTION;
 
-public class SlashCommandListener extends ListenerAdapter {
-    public static final boolean EPHEMERAL = false;
-    public static final boolean MENTION = false;
-
-
-    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
-        // only allow command in guilds and by admins
-
-        if (event.getGuild() == null) {
-            replyFailure(event, "This command can only be used in a server.");
-            return;
-        }
-
-        if (!event.getMember().getPermissions().contains(Permission.ADMINISTRATOR)) {
-            replyFailure(event, "You must be an administrator to use this command.");
-            return;
-        }
-
-        String commandname = event.getName().toLowerCase();
-
-        switch (commandname) {
-            case "setup":
-                setup(event);
-                break;
-            case "list":
-                list(event);
-                break;
-        }
-    }
-
-
+public class Utils {
     public static void replySuccess(SlashCommandInteractionEvent event, String message) {
         event.reply(message).setEphemeral(EPHEMERAL).mentionRepliedUser(MENTION).queue();
     }
@@ -79,5 +50,9 @@ public class SlashCommandListener extends ListenerAdapter {
         }
 
         return sarr;
+    }
+
+    public static EmbedBuilder createDefaultBaseEmbed() {
+        return new EmbedBuilder().setColor(new Color(25, 153, 102)).setTimestamp(Instant.now());
     }
 }
