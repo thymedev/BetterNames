@@ -1,0 +1,21 @@
+version: "3.0"
+
+services:
+  bot:
+    image: bot
+    restart: unless-stopped
+
+
+  prometheus:
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    user: root
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./data/prometheus:/prometheus
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - ./data/mongodb:/data/db
